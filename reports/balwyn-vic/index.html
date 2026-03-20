@@ -1,0 +1,271 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@page { size: A4; margin: 0; }
+body { margin: 0; font-family: 'Helvetica Neue', Arial, sans-serif; color: #14202b; background: #efe9de; }
+.page { width: 210mm; min-height: 297mm; box-sizing: border-box; page-break-after: always; padding: 14mm; background:
+linear-gradient(160deg, #f7f1e7 0%, #f2ece1 36%, #ebefea 100%); }
+.page:last-child { page-break-after: auto; }
+.masthead { display: flex; justify-content: space-between; align-items: end; margin-bottom: 7mm; }
+.masthead-hero { position: relative; min-height: 52mm; margin-bottom: 7mm; border-radius: 18px; overflow: hidden; box-shadow: 0 18px 38px rgba(20,32,43,0.1); }
+.masthead-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.masthead-film { position: absolute; inset: 0; background:
+radial-gradient(circle at top right, rgba(201,168,108,0.2) 0%, rgba(201,168,108,0) 30%),
+linear-gradient(180deg, rgba(5,11,17,0.12) 0%, rgba(5,11,17,0.24) 22%, rgba(5,11,17,0.52) 64%, rgba(5,11,17,0.74) 100%);
+z-index: 0; }
+.masthead-overlay { position: relative; z-index: 1; min-height: 52mm; padding: 8mm 9mm 7mm; background: linear-gradient(90deg, rgba(8,14,20,0.8) 0%, rgba(8,14,20,0.5) 42%, rgba(8,14,20,0.08) 100%); color: white; display: flex; flex-direction: column; justify-content: space-between; }
+.masthead-left { max-width: 70%; }
+.masthead-right { max-width: 24%; text-align: right; }
+.mini-note { font-size: 10px; line-height: 1.45; color: rgba(255,255,255,0.82); }
+.deck { margin: 1mm 0 0; font-size: 16px; color: rgba(255,255,255,0.92); font-weight: 600; }
+.hero-grid { display: grid; grid-template-columns: 1.45fr 0.85fr; gap: 8mm; height: 100mm; }
+.hero-grid-single { grid-template-columns: 1fr; height: 104mm; }
+.hero-visual, .hero-side, .summary-card, .spotlight-block, .insight-card, .news-item, .kpi-card, .overview-bar {
+  background: rgba(255,255,255,0.76); border: 1px solid rgba(20,32,43,0.08); border-radius: 16px; overflow: hidden;
+  box-shadow: 0 14px 30px rgba(20,32,43,0.07);
+}
+.hero-visual { position: relative; }
+.hero-image, .spotlight-main, .thumb-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-image { height: 100%; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9,18,27,0.03) 0%, rgba(9,18,27,0.82) 100%); color: white; padding: 10mm; display: flex; flex-direction: column; justify-content: end; }
+.hero-caption { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.82; }
+.hero-title { margin-top: 2mm; font-size: 23px; font-weight: 700; }
+.hero-title .hero-link { color: white; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.45); padding-bottom: 1mm; }
+.hero-title .hero-link:hover { border-bottom-color: rgba(255,255,255,0.82); }
+.hero-pill-row { margin-top: 3mm; display: flex; flex-wrap: wrap; gap: 2mm; }
+.hero-pill-row-secondary { margin-top: 2mm; }
+.hero-pill { display: inline-flex; align-items: center; padding: 1.5mm 3mm; border-radius: 999px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.95); font-size: 10px; line-height: 1; backdrop-filter: blur(2px); }
+.hero-pill-secondary { background: rgba(9,18,27,0.24); color: rgba(255,255,255,0.84); }
+.eyebrow { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.78); }
+.cover-kicker { margin-top: 1.5mm; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+h1 { margin: 3mm 0 1mm; font-size: 36px; line-height: 0.98; letter-spacing: -0.02em; }
+.cover-date { font-weight: 300; opacity: 0.96; }
+.cover-sep { display: inline-block; margin: 0 3mm; color: rgba(201,168,108,0.92); font-weight: 300; }
+.cover-strap { margin-top: 2.5mm; max-width: 90%; font-size: 11px; line-height: 1.45; color: rgba(255,255,255,0.74); }
+.cover-chip { display: inline-block; margin-bottom: 4mm; padding: 1.6mm 3mm; border-radius: 999px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.18); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.86); }
+.masthead-rule { height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.08) 100%); margin-top: 5mm; }
+.cover-meta-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-top: 4mm; }
+.cover-meta-block { padding-top: 1mm; }
+.cover-meta-block span { display: block; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.56); margin-bottom: 1.2mm; }
+.cover-meta-block strong { display: block; font-size: 11px; line-height: 1.35; color: rgba(255,255,255,0.94); font-weight: 600; }
+.hero-overlay p { margin: 0; font-size: 13px; opacity: 0.92; }
+.side-art { height: 100%; display: flex; flex-direction: column; gap: 4mm; padding: 5mm; background: linear-gradient(145deg, #dde5df 0%, #f5efe5 100%); }
+.art-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #55616d; padding: 1mm 1mm 0; }
+.side-caption { font-size: 11px; color: #55616d; line-height: 1.4; padding: 0 1mm 1mm; }
+.art-placeholder { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; color: #55616d; font-size: 14px; border: 1px dashed rgba(20,32,43,0.22); border-radius: 12px; padding: 8mm; margin-top: 8mm; }
+.overview-bar { margin-top: 8mm; padding: 6mm 7mm 5mm; background: linear-gradient(180deg, rgba(255,255,255,0.84) 0%, rgba(250,247,242,0.9) 100%); }
+.overview-bar-header { display: flex; justify-content: space-between; align-items: end; gap: 6mm; margin-bottom: 4mm; }
+.overview-note { max-width: 42%; font-size: 10px; line-height: 1.45; color: #55616d; text-align: right; }
+.section-title { margin: 0 0 5mm; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: #7b5b2e; }
+.kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+.editorial-kpi-grid { grid-template-columns: repeat(6, 1fr); gap: 0; border-top: 1px solid rgba(20,32,43,0.08); border-bottom: 1px solid rgba(20,32,43,0.08); }
+.kpi-card { background: rgba(255,255,255,0.86); border-radius: 14px; padding: 5mm; border: 1px solid rgba(20,32,43,0.07); }
+.editorial-kpi-grid .kpi-card { background: transparent; border: 0; border-right: 1px solid rgba(20,32,43,0.08); border-radius: 0; padding: 4mm 4mm 3mm; box-shadow: none; }
+.editorial-kpi-grid .kpi-card:last-child { border-right: 0; }
+.kpi-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: #6f7c88; margin-bottom: 2mm; }
+.kpi-value { font-size: 21px; font-weight: 700; color: #14202b; }
+.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-top: 6mm; }
+.summary-grid-tight { margin-top: 8mm; }
+.summary-card { padding: 7mm; background: rgba(255,255,255,0.82); }
+.accent-card { background: linear-gradient(165deg, rgba(255,255,255,0.92) 0%, rgba(245,239,228,0.96) 100%); }
+.summary-kicker { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #7b5b2e; margin-bottom: 3mm; }
+.summary-card h2, .insight-card h2 { margin: 0 0 4mm; font-size: 17px; }
+.summary-card ul { margin: 0; padding-left: 5mm; }
+.summary-card li, .summary-card p, .insight-card p, .news-item p { font-size: 12px; line-height: 1.5; }
+.change-list { display: grid; gap: 2.5mm; }
+.change-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(20,32,43,0.08); padding-bottom: 2mm; font-size: 12px; }
+.change-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.change-row strong { font-size: 16px; color: #14202b; }
+.two-blocks { display: grid; grid-template-rows: 1fr 1fr; gap: 5mm; height: calc(297mm - 28mm); }
+.spotlight-block { padding: 5mm; display: grid; grid-template-rows: auto auto auto; gap: 3mm; background: rgba(255,255,255,0.85); }
+.spotlight-kicker { font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: #7b5b2e; }
+.spotlight-block h2 { margin: 1.5mm 0 0.5mm; font-size: 20px; line-height: 1.08; }
+.spotlight-meta { font-size: 11px; color: #55616d; }
+.spotlight-layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.72fr); gap: 4mm; align-items: stretch; }
+.spotlight-main { width: 100%; height: auto; min-height: 62mm; max-height: 62mm; object-fit: cover; border-radius: 12px; }
+.spotlight-details { display: grid; gap: 3mm; }
+.detail-card { background: linear-gradient(160deg, rgba(243,239,230,0.96) 0%, rgba(255,255,255,0.96) 100%); border: 1px solid rgba(20,32,43,0.06); border-radius: 12px; padding: 3mm; }
+.detail-label { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #6f7c88; margin-bottom: 1.5mm; }
+.detail-value { font-size: 11px; line-height: 1.35; color: #14202b; }
+.detail-url { font-size: 10px; overflow-wrap: anywhere; }
+.detail-link { color: #30404d; text-decoration: underline; text-underline-offset: 2px; }
+.detail-button { display: inline-flex; align-items: center; justify-content: center; padding: 2.4mm 3.4mm; border-radius: 999px; background: #1c2a38; color: white; text-decoration: none; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+.related-title { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: #7b5b2e; margin-top: 0.5mm; }
+.thumb-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; }
+.related-card { display: grid; grid-template-rows: 14mm auto; gap: 1mm; }
+.thumb-image { width: 100%; height: 14mm; object-fit: cover; border-radius: 10px; }
+.thumb-fallback { background: linear-gradient(135deg, #f0ebe1 0%, #f7f5ef 100%); border: 1px solid rgba(20,32,43,0.08); color: #6f7c88; display: flex; align-items: center; justify-content: center; }
+.thumb-fallback-label { font-size: 8px; letter-spacing: 0.08em; text-transform: uppercase; }
+.related-caption { font-size: 8px; line-height: 1.25; color: #55616d; }
+.related-sub { margin-top: 0.5mm; font-size: 7px; color: #7a8691; }
+.related-link { color: #55616d; text-decoration: none; border-bottom: 1px solid rgba(85,97,109,0.28); }
+.related-link:hover { border-bottom-color: rgba(85,97,109,0.6); }
+.related-empty { grid-column: 1 / -1; padding: 5mm; border-radius: 10px; border: 1px dashed rgba(20,32,43,0.16); color: #6f7c88; font-size: 11px; text-align: center; }
+.image-placeholder { background: linear-gradient(135deg, #e8ece8 0%, #f7f5ef 100%); border: 1px dashed rgba(20,32,43,0.18); color: #6f7c88; display: flex; align-items: center; justify-content: center; text-align: center; padding: 4mm; }
+.news-grid { display: grid; grid-template-columns: 1fr; gap: 3mm; align-items: start; }
+.news-item { display: grid; grid-template-columns: 24mm 1fr; gap: 1.5mm 5mm; padding: 4mm 5mm; min-height: 0; background: rgba(255,255,255,0.86); border-radius: 12px; align-items: start; }
+.news-source { grid-column: 1; grid-row: 1; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: #7b5b2e; margin-top: 1mm; }
+.news-item h3 { grid-column: 2; grid-row: 1; margin: 0; font-size: 11px; line-height: 1.35; font-weight: 700; }
+.news-item p { grid-column: 2; grid-row: 2; margin: 0; font-size: 10px; line-height: 1.5; color: #30404d; }
+.news-link { color: #7b5b2e; text-decoration: none; }
+.news-title-link { color: #14202b; text-decoration: none; }
+.insight-card { margin-top: 8mm; padding: 8mm; background: linear-gradient(165deg, rgba(255,255,255,0.92) 0%, rgba(238,241,235,0.96) 100%); }
+.article-card h3 { margin: 4mm 0 2mm; font-size: 12px; line-height: 1.35; color: #14202b; }
+.article-card p { margin: 0 0 2.5mm; font-size: 10px; line-height: 1.55; color: #30404d; }
+.article-kicker { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #7b5b2e; margin-bottom: 2mm; }
+</style>
+</head>
+<body>
+
+    <section class="page page-cover">
+      <div class="masthead masthead-hero">
+        <img class="masthead-bg" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Looking_north_along_Balwyn_Road_from_intersection_with_Whitehorse_Road_in_Balwyn%2C_Melbourne.jpg" alt="Balwyn 街区背景图" />
+        <div class="masthead-film"></div>
+        <div class="masthead-overlay">
+          <div class="masthead">
+            <div class="masthead-left">
+              <div class="eyebrow">Balwyn Market Brief</div>
+              <div class="cover-kicker">MELBOURNE EASTERN SUBURBS | DAILY EDITION</div>
+              <h1><span class="cover-date">2026-03-19</span><span class="cover-sep">/</span>Balwyn VIC</h1>
+              <p class="deck">高端住宅市场日报</p>
+              <div class="cover-strap">聚焦 Balwyn 顶级挂牌、渠道变化、街区信号与东区房产新闻</div>
+            </div>
+            <div class="masthead-right">
+              <div class="cover-chip">Market Intelligence</div>
+              <div class="mini-note">数据快照基于最新已入库挂牌与变更事件</div>
+            </div>
+          </div>
+          <div class="masthead-rule"></div>
+          <div class="cover-meta-row">
+            <div class="cover-meta-block"><span>重点板块</span><strong>House / Townhouse</strong></div>
+            <div class="cover-meta-block"><span>观察范围</span><strong>Balwyn / Balwyn North / Boroondara</strong></div>
+            <div class="cover-meta-block"><span>内容形式</span><strong>图文快报 + 新闻综述</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-grid hero-grid-single">
+        <div class="hero-visual hero-card">
+          <img class="hero-image" src="https://i2.au.reastatic.net/800x600/0966b5f469a6cf1ca732b624fc458826df67f2d6e4c29a0f2c8f30272438e6eb/image.jpg" alt="Balwyn 封面图" />
+          <div class="hero-overlay">
+            <div class="hero-caption">封面</div>
+            <div class="hero-title"><a class="hero-link" href="https://www.realestate.com.au/property-house-vic-balwyn-150374920">24 Winmalee Road, Balwyn</a></div>
+            <div class="hero-pill-row"><span class="hero-pill">$5,960,000 - $6,160,000</span><span class="hero-pill">House</span><span class="hero-pill">6房</span><span class="hero-pill">4卫</span><span class="hero-pill">4车位</span><span class="hero-pill">672m²</span></div>
+            <div class="hero-pill-row hero-pill-row-secondary"><span class="hero-pill hero-pill-secondary">Bella Real Estate</span><span class="hero-pill hero-pill-secondary">Isabella Kou</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-bar">
+        <div class="overview-bar-header">
+          <div class="section-title">今日关键信号</div>
+          <div class="overview-note">Balwyn 以高端 House 为主导，当前挂牌活跃，中介与销售人变化仍值得持续跟踪。</div>
+        </div>
+        <div class="kpi-grid editorial-kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">挂牌总数</div><div class="kpi-value">136</div></div>
+          <div class="kpi-card"><div class="kpi-label">House</div><div class="kpi-value">66</div></div>
+          <div class="kpi-card"><div class="kpi-label">Townhouse</div><div class="kpi-value">15</div></div>
+          <div class="kpi-card"><div class="kpi-label">Apartment</div><div class="kpi-value">27</div></div>
+          <div class="kpi-card"><div class="kpi-label">Retirement</div><div class="kpi-value">10</div></div>
+          <div class="kpi-card"><div class="kpi-label">中位价</div><div class="kpi-value">$2,300,000</div></div>
+        </div>
+      </div>
+
+      <div class="summary-grid summary-grid-tight">
+        <div class="summary-card">
+          <h2>今日变化摘要</h2>
+          <div class="change-list">
+            <div class="change-row"><span>新增挂牌</span><strong>111</strong></div>
+            <div class="change-row"><span>价格变化</span><strong>18</strong></div>
+            <div class="change-row"><span>中介公司变化</span><strong>21</strong></div>
+            <div class="change-row"><span>销售人变化</span><strong>23</strong></div>
+            <div class="change-row"><span>PDF 明确降价</span><strong>0</strong></div>
+          </div>
+        </div>
+        <div class="summary-card">
+          <h2>价格结构</h2>
+          <div class="change-list">
+            <div class="change-row"><span>价格覆盖样本</span><strong>93</strong></div>
+            <div class="change-row"><span>最低价</span><strong>$369,000</strong></div>
+            <div class="change-row"><span>中位价</span><strong>$2,300,000</strong></div>
+            <div class="change-row"><span>最高价</span><strong>$6,880,000</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="page page-spotlights">
+      <div class="two-blocks">
+        
+        <div class="spotlight-block">
+          <div class="spotlight-header">
+            <div class="spotlight-kicker">House 重点房源</div>
+            <h2>24 Winmalee Road, Balwyn</h2>
+            <div class="spotlight-meta">$5,960,000 - $6,160,000 | 6房 | 4卫 | 4车位 | 672m²</div>
+          </div>
+          <div class="spotlight-layout">
+            <img class="spotlight-main" src="https://i2.au.reastatic.net/800x600/0966b5f469a6cf1ca732b624fc458826df67f2d6e4c29a0f2c8f30272438e6eb/image.jpg" alt="House 重点房源主图" />
+            <div class="spotlight-details">
+              <div class="detail-card">
+                <div class="detail-label">中介公司</div>
+                <div class="detail-value">Bella Real Estate</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-label">销售人</div>
+                <div class="detail-value">Isabella Kou</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-label">房源链接</div>
+                <div class="detail-value detail-url"><a class="detail-link detail-button" href="https://www.realestate.com.au/property-house-vic-balwyn-150374920">打开房源</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="related-title">其他房源首图</div>
+          <div class="thumb-row"><div class="related-card"><img class="thumb-image" src="https://i2.au.reastatic.net/800x600/acc5b81b5a1c7b9cdddf58be6804e7bfeff9196388a356028c7dfd0463d297a9/image.jpg" alt="327 Union Road, Balwyn" /><div class="related-caption"><a class="related-link" href="https://www.realestate.com.au/property-house-vic-balwyn-149374000">327 Union Road, Balwyn</a><div class="related-sub">$5,200,000</div></div></div><div class="related-card"><img class="thumb-image" src="https://i2.au.reastatic.net/800x600/baddf190d6d31638a21dd7e9354c989df1c4375cc0ea1cc09390b0ec556c848a/image.jpg" alt="11 Grey Street, Balwyn" /><div class="related-caption"><a class="related-link" href="https://www.realestate.com.au/property-house-vic-balwyn-150406836">11 Grey Street, Balwyn</a><div class="related-sub">$4,950,000 - $5,445,000</div></div></div><div class="related-card"><img class="thumb-image" src="https://i2.au.reastatic.net/800x600/f611294b52117c0d32736301d59f43562f4878db66464e03203844b757093617/image.jpg" alt="11 Bruce Street, Balwyn" /><div class="related-caption"><a class="related-link" href="https://www.realestate.com.au/property-house-vic-balwyn-150167040">11 Bruce Street, Balwyn</a><div class="related-sub">$4,800,000 - $5,000,000</div></div></div><div class="related-card"><img class="thumb-image" src="https://i2.au.reastatic.net/800x600-format=webp/85e9407a83fc81c6ae438f59d159913363ec639c93a0f02394019e6150f85854/image.jpg" alt="349 Union Road, Balwyn" /><div class="related-caption"><a class="related-link" href="https://www.realestate.com.au/property-house-vic-balwyn-148686072">349 Union Road, Balwyn</a><div class="related-sub">$6,100,000 - $6,500,000</div></div></div></div>
+        </div>
+        
+        
+        <div class="spotlight-block">
+          <div class="spotlight-header">
+            <div class="spotlight-kicker">Townhouse 重点房源</div>
+            <h2>14a Burroughs Road, Balwyn</h2>
+            <div class="spotlight-meta">$2,300,000 - $2,500,000 | 3房 | 2卫 | 2车位 | 374m²</div>
+          </div>
+          <div class="spotlight-layout">
+            <img class="spotlight-main" src="https://i2.au.reastatic.net/800x600/5a31062dcc8298a1f7d8a52ceb2277a4fb9350c71c27d9eefa499f79f1a43a0c/image.jpg" alt="Townhouse 重点房源主图" />
+            <div class="spotlight-details">
+              <div class="detail-card">
+                <div class="detail-label">中介公司</div>
+                <div class="detail-value">Jellis Craig - Boroondara</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-label">销售人</div>
+                <div class="detail-value">Elsa Li</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-label">房源链接</div>
+                <div class="detail-value detail-url"><a class="detail-link detail-button" href="https://www.realestate.com.au/property-townhouse-vic-balwyn-150342876">打开房源</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="related-title">其他房源首图</div>
+          <div class="thumb-row"><div class="related-card"><img class="thumb-image" src="https://i2.au.reastatic.net/800x600/7e270e92cf758aa228c78ff82f4420370d617464da6590dc7a7f2c6a7cb2fd65/image.jpg" alt="1/7 Iramoo Street, Balwyn" /><div class="related-caption"><a class="related-link" href="https://www.realestate.com.au/property-townhouse-vic-balwyn-149618804">1/7 Iramoo Street, Balwyn</a><div class="related-sub">$1,700,000 - $1,870,000</div></div></div><div class="related-card"><img class="thumb-image" src="https://i2.au.reastatic.net/800x600/d722414188693b2ee2a7c72deb895183057c3147f78433c17c7a6542c4463a52/image.jpg" alt="5/7 Iramoo Street, Balwyn" /><div class="related-caption"><a class="related-link" href="https://www.realestate.com.au/property-townhouse-vic-balwyn-149639964">5/7 Iramoo Street, Balwyn</a><div class="related-sub">$1,600,000 - $1,760,000</div></div></div><div class="related-card"><img class="thumb-image" src="https://i2.au.reastatic.net/800x600/0dd01e667e94f40f9fdd8a5322bab5b975b81a249fb819a669dcd1f43a212746/image.jpg" alt="1/1 Dundee Street, Balwyn" /><div class="related-caption"><a class="related-link" href="https://www.realestate.com.au/property-townhouse-vic-balwyn-150467224">1/1 Dundee Street, Balwyn</a><div class="related-sub">$1,600,000 - $1,750,000</div></div></div><div class="related-card"><img class="thumb-image" src="https://i2.au.reastatic.net/800x600-format=webp/ae76d249975ef0197b1961e310df0c09f35706a95a304aefc0353212663816a6/image.jpg" alt="3/84 Balwyn Road, Balwyn" /><div class="related-caption"><a class="related-link" href="https://www.realestate.com.au/property-townhouse-vic-balwyn-148845892">3/84 Balwyn Road, Balwyn</a><div class="related-sub">$3,650,000</div></div></div></div>
+        </div>
+        
+      </div>
+    </section>
+    
+
+    <section class="page page-news">
+      <div class="section-title">重点新闻</div>
+      <div class="news-grid">
+        <div class="news-item"><div class="news-source"><a class="news-link" href="https://news.google.com/rss/articles/CBMimgFBVV95cUxQejBDSEYtUmRkVFRmaEpXN1ExTzkyNVFNTlJZZ2hfbTdtWktOR2M4OE0tTmFKZkpXbVBRNGN4eHJCUHAyaFRBVXVfUFBVZlhTTHJOaXgwRjI4ZE9jaFZiTlA3OGM1TnJTZnBmbXhQNzZxQkkzRXBhSHI3azJuaWwtd0RacEkwcHEtQXRRcUtmd2dYUUtvU2hSZHB3?oc=5">realestate.com.au</a></div><h3><a class="news-title-link" href="https://news.google.com/rss/articles/CBMimgFBVV95cUxQejBDSEYtUmRkVFRmaEpXN1ExTzkyNVFNTlJZZ2hfbTdtWktOR2M4OE0tTmFKZkpXbVBRNGN4eHJCUHAyaFRBVXVfUFBVZlhTTHJOaXgwRjI4ZE9jaFZiTlA3OGM1TnJTZnBmbXhQNzZxQkkzRXBhSHI3azJuaWwtd0RacEkwcHEtQXRRcUtmd2dYUUtvU2hSZHB3?oc=5">获奖设计、从未入住的 Balwyn North 豪宅叫价 550 万澳元</a></h3><p>这则房源报道聚焦 Balwyn North 一套从未入住、带设计标签的高端住宅，叫价约 550 万澳元。它反映出本区高端新宅仍以稀缺性、设计感和学区属性来支撑定价。</p></div><div class="news-item"><div class="news-source"><a class="news-link" href="https://news.google.com/rss/articles/CBMigwFBVV95cUxPUlk2eDZnSHZZX29tVmFXU3h0TDAxSjM3T0lWRHJoRlhDTF9HczZqQWNVMnN0dVJzckdUSU53bm9Pb09qQUNyVXRFTFZGSGlKTUxOaW5GY1p5Y09Fa2xhYzE0UExnWmdqTWZxa3hrOXk1TzVnWEdpUWJhVWlEVV9tOWdCbw?oc=5">realestate.com.au</a></div><h3><a class="news-title-link" href="https://news.google.com/rss/articles/CBMigwFBVV95cUxPUlk2eDZnSHZZX29tVmFXU3h0TDAxSjM3T0lWRHJoRlhDTF9HczZqQWNVMnN0dVJzckdUSU53bm9Pb09qQUNyVXRFTFZGSGlKTUxOaW5GY1p5Y09Fa2xhYzE0UExnWmdqTWZxa3hrOXk1TzVnWEdpUWJhVWlEVV9tOWdCbw?oc=5">Balwyn North 拍卖成交价冲上 336 万澳元</a></h3><p>这条成交新闻显示 Balwyn North 近期拍卖市场仍有强劲承接力，一套房源在竞拍中冲到 336 万澳元。对周边业主和买家来说，这说明优质学区盘在公开拍卖场景下依然容易形成竞争。</p></div><div class="news-item"><div class="news-source"><a class="news-link" href="https://news.google.com/rss/articles/CBMigAFBVV95cUxNQ1FoejUtY2E3MVdFblhfbWp2TnBlXzU1U1JRR3NCTDBLYXJVWi0zQjNHeXZPNjlHMV9mSXRyekJScXZQbzlOS0Jmc19fd0tLRmsyWW1XSTVSX1lGTWJ2bi1hTElyNWRNZ1d6QXU4dkU1MUIwaU1XV0FWWlkydElBNQ?oc=5">Domain</a></div><h3><a class="news-title-link" href="https://news.google.com/rss/articles/CBMigAFBVV95cUxNQ1FoejUtY2E3MVdFblhfbWp2TnBlXzU1U1JRR3NCTDBLYXJVWi0zQjNHeXZPNjlHMV9mSXRyekJScXZQbzlOS0Jmc19fd0tLRmsyWW1XSTVSX1lGTWJ2bi1hTElyNWRNZ1d6QXU4dkU1MUIwaU1XV0FWWlkydElBNQ?oc=5">Balwyn North 街区观察</a></h3><p>这篇街区报道从居住氛围、学区资源和街道环境角度介绍 Balwyn North，为买家理解该片区的生活方式提供背景。它有助于把单套房源判断放回更大的社区与客群定位中。</p></div><div class="news-item"><div class="news-source"><a class="news-link" href="https://news.google.com/rss/articles/CBMikgFBVV95cUxPbmRodWx1eWFWYzB4VFNGcGpoRDJsTjhoRF9ZQjlQOUJWYjBHTEx5R2NvNnJvU0JfMmlZcXpzaVc4cUNEOXdzc1FQMXNmU3pGc3NIWUdIaHdYSkZOMHRMWEUwYUlaWmRCalpZX1k4cWY5NTctWXUyRnh5UGRnYl8xZFpVQzBKeHEzNTc4U1NnZktBdw?oc=5">realestate.com.au</a></div><h3><a class="news-title-link" href="https://news.google.com/rss/articles/CBMikgFBVV95cUxPbmRodWx1eWFWYzB4VFNGcGpoRDJsTjhoRF9ZQjlQOUJWYjBHTEx5R2NvNnJvU0JfMmlZcXpzaVc4cUNEOXdzc1FQMXNmU3pGc3NIWUdIaHdYSkZOMHRMWEUwYUlaWmRCalpZX1k4cWY5NTctWXUyRnh5UGRnYl8xZFpVQzBKeHEzNTc4U1NnZktBdw?oc=5">Balwyn North 学区拆建地以 313 万澳元成交</a></h3><p>报道指出，一块位于学区范围内、适合拆建重建的 Balwyn North 土地以 313 万澳元成交。它说明学区效应不仅推高成屋价格，也在持续支撑开发型土地的成交水位。</p></div><div class="news-item"><div class="news-source"><a class="news-link" href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxOUkJ2WkdxenhNWk9BLUFUaU5pSDR4RllUdlFScWx2clYwWjU5Q0xoWlZSMjNlOEVRVF9vQ2V6WDBJTzNLNW56Tm5TTjlLWS1oWlBtSGVMeHpDRU82SVRuamFZemxNTjFrNHo4LWQwV2xoODZxM1QxeWxKZDZHSFFFTVNBR180VnBHbWJhZ3gwekF6eThmUktjbHdfaFQ3NU9tOUtGVjNkZ1FSdlBzUDJkT0JqcEQ4MDJ3ZWtj?oc=5">realestate.com.au</a></div><h3><a class="news-title-link" href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxOUkJ2WkdxenhNWk9BLUFUaU5pSDR4RllUdlFScWx2clYwWjU5Q0xoWlZSMjNlOEVRVF9vQ2V6WDBJTzNLNW56Tm5TTjlLWS1oWlBtSGVMeHpDRU82SVRuamFZemxNTjFrNHo4LWQwV2xoODZxM1QxeWxKZDZHSFFFTVNBR180VnBHbWJhZ3gwekF6eThmUktjbHdfaFQ3NU9tOUtGVjNkZ1FSdlBzUDJkT0JqcEQ4MDJ3ZWtj?oc=5">Balwyn North 西班牙大理石豪宅或刷新价格纪录</a></h3><p>这则报道聚焦 Balwyn North 一套用西班牙大理石等高规格材料打造的豪宅，并认为其成交价可能刷新片区纪录。它显示本区顶豪市场依然能通过稀缺配置和视觉话题性吸引高净值买家关注。</p></div><div class="news-item"><div class="news-source"><a class="news-link" href="https://news.google.com/rss/articles/CBMivgFBVV95cUxPcHlVT2djbUtzbU5hbkY5TURXUmtHcmNYZ2ZPTDFSRlUwUDV0cmNtbmhxWExsbHhCMmNFZDRRRGRMSmNjbnZCelBlaXJmZzh5b3FTeWdqeUJUM254b1YyNWpDUmkwZ0V0bDJlXzE0Z3FGbUFxeXBVRm5vSHR1RGpyT0VpVjl3LWI4U3hxVGN3ZlRYX2tncjJPUHFGejdtdWthLUxEaDFLNEp4UGtSRkRpbTY2aXE5NGJabk0yVUJB?oc=5">realestate.com.au</a></div><h3><a class="news-title-link" href="https://news.google.com/rss/articles/CBMivgFBVV95cUxPcHlVT2djbUtzbU5hbkY5TURXUmtHcmNYZ2ZPTDFSRlUwUDV0cmNtbmhxWExsbHhCMmNFZDRRRGRMSmNjbnZCelBlaXJmZzh5b3FTeWdqeUJUM254b1YyNWpDUmkwZ0V0bDJlXzE0Z3FGbUFxeXBVRm5vSHR1RGpyT0VpVjl3LWI4U3hxVGN3ZlRYX2tncjJPUHFGejdtdWthLUxEaDFLNEp4UGtSRkRpbTY2aXE5NGJabk0yVUJB?oc=5">Balwyn North 的 Robin Boyd 原作住宅面临风险</a></h3><p>这条新闻把 Balwyn North 与建筑保护议题联系在一起，讨论现代主义住宅遗产在更新开发中的压力。它提醒市场参与者，东区高价值住宅不仅是交易资产，也常与建筑文化和社区审美发生碰撞。</p></div><div class="news-item"><div class="news-source"><a class="news-link" href="https://news.google.com/rss/articles/CBMingFBVV95cUxPSW1xREd3ZHZHeFNhc1l4SXJNSFBkX3Y3WVczcTZrZ0xjMmRxQlNyTk80amVvODl2dzFJUk5uY0dKRTBCaXBDYTR5MGxsUVBueUxIN1BBSzNHTlhXUFNfbExHNUNVYTZGb1J6Y1NPQ3JUMkpkd0p4REpPRGdCMWJTQ2oyczFTdUtVUjBibFc1Qm04NFVYOHRTTlRvQmo3dw?oc=5">realestate.com.au</a></div><h3><a class="news-title-link" href="https://news.google.com/rss/articles/CBMingFBVV95cUxPSW1xREd3ZHZHeFNhc1l4SXJNSFBkX3Y3WVczcTZrZ0xjMmRxQlNyTk80amVvODl2dzFJUk5uY0dKRTBCaXBDYTR5MGxsUVBueUxIN1BBSzNHTlhXUFNfbExHNUNVYTZGb1J6Y1NPQ3JUMkpkd0p4REpPRGdCMWJTQ2oyczFTdUtVUjBibFc1Qm04NFVYOHRTTlRvQmo3dw?oc=5">Balwyn North mansion: Agnes Ave house sets suburb record price - realestate.com.au</a></h3><p>Balwyn North mansion: Agnes Ave house sets suburb record price - realestate.com.au，更偏向街区与社区画像，有助于理解 Balwyn / Balwyn North 的居住吸引力。它适合作为房源日报里的区域背景信息。</p></div><div class="news-item"><div class="news-source"><a class="news-link" href="https://news.google.com/rss/articles/CBMingFBVV95cUxQMkJlRjRVWHExcmNua0p0LV9kcTNFV3RvNFlNYkFfbmJyMHpqX08ySUdCMFoxUTBSMmdTYUgzUXhuZUFDZmVrVkJncEpEQlk1NDlYRXc0M3ZzUkZHbm1QcW9MYVJUcGlRSHZveWo3RE5WYlI5bEdDQ0hIQmQ5ZmlkSEF5bVFELTB4RjBvbnRINnhSRHBkVnJnRW1JNUlxZw?oc=5">realestate.com.au</a></div><h3><a class="news-title-link" href="https://news.google.com/rss/articles/CBMingFBVV95cUxQMkJlRjRVWHExcmNua0p0LV9kcTNFV3RvNFlNYkFfbmJyMHpqX08ySUdCMFoxUTBSMmdTYUgzUXhuZUFDZmVrVkJncEpEQlk1NDlYRXc0M3ZzUkZHbm1QcW9MYVJUcGlRSHZveWo3RE5WYlI5bEdDQ0hIQmQ5ZmlkSEF5bVFELTB4RjBvbnRINnhSRHBkVnJnRW1JNUlxZw?oc=5">Balwyn North house designed around infinity-edge pool for sale - realestate.com.au</a></h3><p>Balwyn North house designed around infinity-edge pool for sale - realestate.com.au，显示 Balwyn 一带的近期成交和竞拍表现仍具参考价值。它更适合用来观察买家竞争强度与本区价格承接能力。</p></div>
+      </div>
+      <div class="insight-card article-card"><div class="article-kicker">观察</div><h2>2026-03-20 Balwyn 房产观察：从成交与挂牌并存格局看 Balwyn 的价格支撑逻辑</h2><p>Balwyn 今天的数据仍然足以说明它在墨尔本东区高端住宅市场中的特殊位置。当前挂牌总量约 136 套，已识别样本的中位价约 $2,300,000，House 仍是最核心的供给主体，而 Townhouse 则继续承担改善型与轻资产买家的替代需求。</p><h3>先看今天的市场轮廓</h3><p>从结构上看，House 66 套、Townhouse 15 套、Apartment 27 套、Retirement 10 套，这种分布本身就说明 Balwyn 仍然是一个由土地型住宅定义价格锚点的 suburb。即便市场节奏并不极端火热，只要高质量 House 还在主导挂牌池，整个区域的定价语境就不会轻易滑向普通改善盘。</p><h3>重点房源透露了什么</h3><p>今天的 House 样本里，24 Winmalee Road, Balwyn 是最值得看的代表之一，报价 $5,960,000 - $6,160,000。这类房源通常不只是看总价，更看土地、立面、街道感和渠道控制能力。相对地，Townhouse 样本中的 14a Burroughs Road, Balwyn 则更像是 Balwyn 当前改善型需求的缩影，它提醒我们：在总价抬升的周期里，联排产品会成为很多家庭继续留在学区与成熟社区的现实选择。</p><h3>把 Balwyn 放到更大的市场里</h3><p>如果把视角放回墨尔本，Balwyn 与 Balwyn North、Canterbury、Camberwell 这类传统东区板块一起，构成了高端家庭置业需求最敏感的一圈。谁先出现价格松动、谁还能维持竞价、谁开始依赖场外成交，往往比单独看宏观新闻更能说明市场温度。</p><h3>媒体信号与市场情绪</h3><p>今天抓到的相关新闻里，最值得和 Balwyn 挂钩去看的，是《获奖设计、从未入住的 Balwyn North 豪宅叫价 550 万澳元》。它提示我们，当前东区买家关注的不只是挂牌数量，而是高质量资产、学区、街区氛围和交易渠道之间的重新组合。</p><h3>结语</h3><p>所以，Balwyn 今天最值得记住的并不是某一套房源本身，而是它继续展现出高端 suburb 常见的市场特征：核心 House 仍然定义价格天花板，Townhouse 提供替代性承接，新闻与渠道变化则不断重塑买家对价值的理解。对长期跟踪者来说，这种结构性的细微变化，往往比一天里的情绪波动更重要。</p></div>
+    </section>
+    
+</body>
+</html>
